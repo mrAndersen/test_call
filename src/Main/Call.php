@@ -55,6 +55,7 @@ class Call {
         $query = http_build_query(['apiKey' => self::$apiKey2, 'phone' => $phone, 'xmlUrl' => $xmlURL]);
         $url = self::$url2.'?'.$query;
 
+        echo "Calling ".$url;
         $json = json_decode(file_get_contents($url),true);
         return $json;
     }
