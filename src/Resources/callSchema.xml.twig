@@ -1,0 +1,19 @@
+<text>Здравствуйте это тестовое задание.</text>
+<silence>0.5</silence>
+<text>Нажмите 1 для переадресации на колл-центр.</text>
+<silence>0.5</silence>
+<text>Нажмите 2 для получения информации о скидках.</text>
+<silence>0.5</silence>
+<text>нажмите 3 чтобы оставить сообщение.</text>
+<dtmf wait="10">
+    <key value="1">
+        <redirect>{{ redirect_phone }}</redirect>
+    </key>
+    <key value="2">
+        <audio>http://{{ host }}/downstream.ogg</audio>
+    </key>
+    <key value="3">
+        <record length="20" name="voice_record" submit="http://{{ host }}/voice.php"></record>
+    </key>
+</dtmf>
+<text>Благодарим Вас.</text>

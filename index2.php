@@ -1,22 +1,18 @@
 <?php
 require_once "vendor/autoload.php";
+Twig_Autoloader::register();
 
 if(empty($_GET)){
-    Twig_Autoloader::register();
-    $loader = new Twig_Loader_Filesystem('src/Resources');
-    $twig = new Twig_Environment($loader);
+    $twig = new Twig_Environment(new Twig_Loader_Filesystem('src/Resources'));
 
     echo $twig->render('index2.html.twig');
-}elseif(isset($_GET['request_call'])){
-    $phone = $_GET['phone'];
-    //Тут должна быть валидация телефона...
-    $pwd = rand(1000,9999);
-
-    if(\Main\Call::call($pwd,$phone)){
+}elseif(isset($_GET['request_xml_call'])){
+    $phone          = $_POST['phone'];
+    $redirect_phone = $_POST['redirect_phone'];
+    //Опять таки валидация...
+    if(\Main\Call::genXML($redirect_phone)){
         header('Content-Type: application/json');
-        echo json_encode(['pwd' => $pwd]);
-    }else{
-        header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
+        echo json_encode(\Main\Call::call2($phone,$redirect_phone));
     }
 }
 
