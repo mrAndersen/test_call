@@ -44,7 +44,8 @@ class Call {
     {
         $twig = new Twig_Environment(new Twig_Loader_Filesystem('src/Resources'));
         $xml = $twig->render('callSchema.xml.twig',[
-            'redirect_phone' => $redirectPhone
+            'redirect_phone' => $redirectPhone,
+            'host' => self::$host
         ]);
         return file_put_contents('schema.xml',$xml);
     }
@@ -56,6 +57,8 @@ class Call {
         $url = self::$url2.'?'.$query;
 
         print_r("Calling ".$url);
+        print_r("<br>");
+
         $json = json_decode(file_get_contents($url),true);
         return $json;
     }
