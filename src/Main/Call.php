@@ -19,7 +19,7 @@ class Call {
     private static $url1    = 'https://vmestosms.ru/call.php';
     private static $url2    = 'https://api.wowcall.ru/call_xml.php';
 
-    private static $host    = '46.182.30.136';
+    private static $host    = '46.182.30.136:999';
 
     /**
      * @param $password
@@ -55,7 +55,7 @@ class Call {
         $query = http_build_query(['apiKey' => self::$apiKey2, 'phone' => $phone, 'xmlUrl' => $xmlURL]);
         $url = self::$url2.'?'.$query;
 
-        echo "Calling ".$url;
+        print_r("Calling ".$url);
         $json = json_decode(file_get_contents($url),true);
         return $json;
     }
